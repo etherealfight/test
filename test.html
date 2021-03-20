@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2 class="title">title</h2>
+    <h2 class="title2">title2</h2>
+    <h2 class="title3">title3</h2>
+    <h2 class="title4">title4</h2>
+    <script>
+        let obj = {
+            al: function () {
+                let title = document.querySelector(".title");
+                title.addEventListener("click", function () {
+                    console.log(1, this)
+                    alert(this)
+                })
+            },
+            bl: function () {
+                console.log(this)
+                let title = document.querySelector(".title2");
+                title.addEventListener("click", () => {
+                    setTimeout(() => {
+                        console.log(2, this)
+                        alert(this)
+                    }, 1000)
+                })
+            }
+        }
+        obj.al();
+        obj.bl();
+        let title3 = document.querySelector(".title3");
+        console.log(this)
+        console.log("h", title3.offsetHeight)
+        title3.addEventListener("click", throttle(() => {
+            console.log(3, this)
+        }, 1000))
+        //防抖
+        function debounce(func, await) {
+            let timer = null;
+            return function () {
+                if (timer) clearTimeout(timer)
+                now = !timer
+                timer = setTimeout(() => {
+                    timer = null
+                }, await)
+                if (now) {
+                    func.apply(this, arguments);
+                }
+            }
+        }
+        //节流
+        function throttle(func, await) {
+            let timer = null;
+            return function () {
+                if (!timer) {
+                    func.apply(this, arguments);
+                    timer = setTimeout(() => {
+                        timer = null
+                    }, await)
+                }
+            }
+        }
+
+        function create() {
+            console.log(this)
+            let title4 = document.querySelector(".title4");
+            title4.addEventListener("click", () => {
+                console.log(4, this)
+                alert(this)
+            })
+            return {
+                a: "hhh",
+                b: 666,
+                m: function () {
+                    let title4 = document.querySelector(".title4");
+                    title4.addEventListener("click", function () {
+                        console.log(4, this)
+                        alert(this)
+                    })
+                }
+            }
+        }
+        let obj2 = new create();
+        var request = indexedDB.open('user', 1);
+        request.onerror = function (event) {
+            alert('失败' + event.target.errorCode);
+        }
+        var users = [{
+                username: "zhangsan",
+                password: "zhangsan",
+                email: "zhangsan@126.com"
+            },
+            {
+                username: "lisi",
+                password: "lisi",
+                email: "lisi@126.com"
+            }
+        ]
+        request.onupgradeneeded = function (event) {
+            console.log("onupgradeneeded");
+            var db = event.target.result;
+            var ObjectStore = db.createObjectStore("users", {
+                keyPath: "username"
+            });
+            ObjectStore.createIndex("username", "username", {
+                unique: false
+            });
+            ObjectStore.createIndex("password", "password", {
+                unique: false
+            });
+            ObjectStore.createIndex("email", "email", {
+                unique: true
+            });
+
+            for (var i in users) {
+                ObjectStore.add(users[i])
+            }
+        }
+
+        var request2 = indexedDB.open('user', 4);
+        var users = [{
+                username: "cczhangsan",
+                password: "zhangsan",
+                email: "zhangsan@126.com"
+            },
+            {
+                username: "cclisi",
+                password: "lisi",
+                email: "lisi@126.com"
+            }
+        ]
+        request.onerror = function (event) {
+            alert('失败' + event.target.errorCode);
+        }
+        request.onsuccess = function (event) {
+            var db = request.result;
+            var ObjectStore = db.ObjectStore("users");
+
+            for (var i in users) {
+                ObjectStore.add(users[i])
+            }
+            console.log("cg");
+           
+        }
+
+        request.onupgradeneeded = function (event) {
+            console.log("onupgradeneeded");
+            var db = event.target.result;
+            var ObjectStore = db.ObjectStore("users");
+
+            for (var i in users) {
+                ObjectStore.add(users[i])
+            }
+        }
+    </script>
+</body>
+
+</html>
