@@ -5,10 +5,115 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css">
+        .contain {
+            display: grid;
+            width: 100vw;
+            height: 20vh;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        .one {
+            background-color: aqua;
+        }
+
+        .two {
+            background-color: aquamarine;
+        }
+
+        .three {
+            background-color: burlywood;
+        }
+
+        .four {
+            background-color: chocolate;
+            width: 100vw;
+            height: 20vh;
+        }
+
+        .middle {
+            height: 20vh;
+            padding: 0 200px;
+        }
+
+        .left {
+            float: left;
+            width: 200px;
+            right: 200px;
+            height: 100%;
+            margin-left: -100%;
+            position: relative;
+            background-color: aquamarine;
+        }
+
+        .center {
+            float: left;
+            height: 100%;
+            width: 100%;
+            background-color: burlywood;
+        }
+
+        .right {
+            float: left;
+            width: 200px;
+            height: 100%;
+            margin-right: -200px;
+            background-color: aqua;
+        }
+
+        .container {
+            height: 20vh;
+            float: left;
+            width: 100%;
+        }
+
+        .scenter {
+            height: 20vh;
+            margin: 0 200px;
+            background-color: crimson;
+        }
+
+        .sleft {
+            height: 20vh;
+            float: left;
+            width: 200px;
+            margin-left: -100%;
+            background-color: yellow;
+        }
+
+        .sright {
+            height: 20vh;
+            float: left;
+            width: 200px;
+            margin-left: -200px;
+            background-color: violet;
+        }
+    </style>
     <title>Document</title>
 </head>
 
 <body>
+
+    <div class="contain">
+        <div class="one"></div>
+        <div class="two"></div>
+        <div class="three"></div>
+    </div>
+    <div class="four"></div>
+
+    <div class="middle">
+        <div class="center"></div>
+        <div class="left"></div>
+        <div class="right"></div>
+    </div>
+
+    <div class="container">
+        <div class="scenter"></div>
+    </div>
+    <div class="sleft"></div>
+    <div class="sright"></div>
+
+
     <h2 class="title">title</h2>
     <h2 class="title2">title2</h2>
     <h2 class="title3">title3</h2>
@@ -147,7 +252,7 @@
                 ObjectStore.add(users[i])
             }
             console.log("cg");
-           
+
         }
 
         request.onupgradeneeded = function (event) {
